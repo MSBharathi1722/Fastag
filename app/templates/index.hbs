@@ -1,0 +1,28 @@
+<div class="outBox">
+  <div class="inBox">
+    <form >
+      <h1>Login To Your Fastag Account</h1>
+      <span><i class="fa fa-user" aria-hidden="true"></i></span>
+      <Input
+        class="input"
+        aria-label="UserName"
+        @type="text"
+        placeholder="Mail"
+        @value={{this.mail}}
+      /><br>
+      <span><i class="fa fa-lock" aria-hidden="true" color></i></span>
+      <Input
+        class="input"
+        aria-label="Password"
+        @type="password"
+        placeholder="Password"
+        @value={{this.pwd}}
+      /><br>
+      {{!-- template-lint-disable no-action --}}
+      <button id="button" type="button" {{action this.validate}}>Log In</button><br>
+      <LinkTo @route="signup">Create one?</LinkTo>
+    </form>
+  </div>
+</div>
+
+{{outlet}}

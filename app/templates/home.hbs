@@ -1,0 +1,8 @@
+    <h3>hello {{this.name}},</h3>
+    <LinkTo @route="tollPayment"><h4>pay for a toll?</h4></LinkTo>
+    <LinkTo @route="return"><h4>Return?</h4></LinkTo>
+    <LinkTo @route="payment">recharge your fastag account?</LinkTo>
+    {{!-- template-lint-disable no-action --}}
+    {{!-- <button type="button" {{action this.returns}}>Return ?</button> --}}
+    <h3>Available Balance {{this.balance}}</h3>
+{{outlet}}

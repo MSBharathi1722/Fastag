@@ -1,0 +1,84 @@
+<div class="outBox">
+  <div class="inBox">
+    <form >
+				<h1>Sign up</h1>
+
+          {{#unless this.first}}
+               <Input
+            class="input"
+            aria-label="UserName"
+            @type="text"
+            placeholder="Name"
+            @value={{this.name}}
+          /><br>
+           <Input
+            class="input"
+            aria-label="UserMail"
+            @type="mail"
+            placeholder="mail"
+            @value={{this.mail}}
+          /><br>
+           <Input
+            class="input"
+            aria-label="UseMobile"
+            @type="text"
+            placeholder="Mobile Number"
+            @value={{this.mobile}}
+          /><br>
+           <Input
+            class="input"
+            aria-label="Password"
+            @type="password"
+            placeholder="Password"
+            @value={{this.pwd}}
+          /><br>
+            {{!-- template-lint-disable no-action --}}
+            <button type="button" {{action this.firstValidate}}>Continue</button>
+          {{/unless}}
+
+         {{#if this.second}}
+              <Input
+                class="input"
+                aria-label="Reg_No"
+                @type="text"
+                placeholder="Reg_No"
+                @value={{this.regNo}}
+              /><br>
+              {{!-- template-lint-disable require-input-label --}}
+              <select onchange={{action "choose" value="target.value"}}>
+                <option disabled selected> -- Select Type -- </option>
+                <option value="type1">Car/Jeep/Van</option>
+                <option value="type2">LCV</option>
+                <option value="type3">Bus/Truck</option>
+                <option value="type4">Upto 3 Axle</option>
+                <option value="type5">4-6 Axle</option>
+                <option value="type6">HCM/EME</option>
+                <option value="type7">7 or more Axle</option>
+              </select><br>
+              <Input
+                class="input"
+                aria-label="Vehicle Owner Name"
+                @type="text"
+                placeholder="Owner Name"
+                @value={{this.ownerName}}
+              /><br>
+              {{!-- template-lint-disable no-action --}}
+            <button type="button" {{action this.secondValidate}}>Continue</button>
+         {{/if}}
+         {{#if this.third}}
+            <h4>Everything is set, <br>Create a Passcode/Pin and complete your regisration</h4>
+            <Input
+                class="input"
+                aria-label="pin"
+                @type="text"
+                placeholder="****"
+                @value={{this.pin}}
+              /><br>
+              {{!-- template-lint-disable no-action --}}
+            <button type="button" {{action this.check}}>Continue</button>
+         {{/if}}
+</form>
+  </div>
+  <div class="box3"></div>
+</div>
+{{outlet}}

@@ -1,0 +1,19 @@
+{{#unless this.content}}
+  <form>
+    <label>place:</label>
+       <Input
+          class="input"
+          aria-label="Toll Place"
+          @type="text"
+          placeholder="TollGate Place"
+          @value={{this.place}}
+        /><br>
+        {{!-- template-lint-disable no-action --}}
+        <button id="bt" type="button" {{action this.check}}>Continue</button>
+      </form>
+{{/unless}}
+{{#if this.receipt}}
+  <h1>Amount Paid</h1>
+  <LinkTo @route="home">Home</LinkTo>
+{{/if}}
+{{outlet}}

@@ -1,0 +1,30 @@
+<div class="box1">
+  <div class="box2">
+    <form>
+      {{#unless this.first}}
+        <Input
+          class="input"
+          aria-label="Toll Place"
+          @type="text"
+          placeholder="TollGate Place"
+          @value={{this.place}}
+        />
+        {{!-- template-lint-disable no-action --}}
+        <button type="button" {{action this.validate}}>Continue</button>
+      {{/unless}}
+      {{#if this.second}}
+        <Input
+          class="input"
+          aria-label="Pin"
+          @type="text"
+          placeholder="PIN"
+          @value={{this.pin}}
+        />
+        <button type="button" {{action this.check}}>Pay</button>
+      {{/if}}
+
+    </form>
+  </div>
+  <div class="box3"></div>
+</div>
+{{outlet}}

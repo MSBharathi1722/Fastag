@@ -1,0 +1,34 @@
+.outBox{
+  background-image: url(../assets/images/bg_new.jpg);
+  background-repeat: round;
+  background: cover;
+  min-height: 670pt;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.inBox{
+  position: absolute;
+  line-height: 50px;
+  margin-top: 200px;
+  background-color: rgba(1, 17, 17, 0.452);
+  width: calc(30% - 50px) ;
+  height: auto;
+  text-align: center;
+}
+span{
+  background-color: white;
+  padding: 10px;
+  color:black;
+  margin: 0;
+}
+.box1{
+  text-align: center;
+  margin: auto;
+}
+.box2{
+  background-color: blanchedalmond;
+}
