@@ -21,17 +21,17 @@
 
   <servlet-mapping>
     <servlet-name>Two</servlet-name>
-    <url-pattern>/getDetails</url-pattern>
+    <url-pattern>/getDetails/*</url-pattern>
   </servlet-mapping>
 
   <servlet>
    <servlet-name>Three</servlet-name>
-   <servlet-class>Check</servlet-class>
+   <servlet-class>returnTime</servlet-class>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>Three</servlet-name>
-    <url-pattern>/check</url-pattern>
+    <url-pattern>/returns</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -41,7 +41,7 @@
 
   <servlet-mapping>
     <servlet-name>Four</servlet-name>
-    <url-pattern>/signup</url-pattern>
+    <url-pattern>/newRecords</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -51,37 +51,7 @@
 
   <servlet-mapping>
     <servlet-name>Five</servlet-name>
-    <url-pattern>/tollpass</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-   <servlet-name>Six</servlet-name>
-   <servlet-class>payment</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>Six</servlet-name>
-    <url-pattern>/pay</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-   <servlet-name>Seven</servlet-name>
-   <servlet-class>returnTime</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>Seven</servlet-name>
-    <url-pattern>/return</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-   <servlet-name>Eight</servlet-name>
-   <servlet-class>addBalance</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>Eight</servlet-name>
-    <url-pattern>/addBal</url-pattern>
+    <url-pattern>/travels</url-pattern>
   </servlet-mapping>
 
 </web-app>

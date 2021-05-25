@@ -6,21 +6,26 @@ import play.api.libs.json._
 
 class signup extends HttpServlet {
 
-  override def doGet(request: HttpServletRequest, response: HttpServletResponse): Unit = {
-    
-    val mail: String = request.getParameter("mail")
-    val password: String = request.getParameter("pwd")
-    val mobile: String = request.getParameter("mobile")
-    val name: String = request.getParameter("name")
-    val types: String = request.getParameter("type")
-    val regNo: String = request.getParameter("regNo")
-    val ownerName: String = request.getParameter("ownerName")
-    val pin: String = request.getParameter("pin")
-
-    val dbs: newUserDb = new newUserDb()
+  override def doPost(request: HttpServletRequest, response: HttpServletResponse) {
     response.setContentType("applicaton/json")
     response.setCharacterEncoding("utf-8")
     val out: PrintWriter = response.getWriter
+
+    val reader = request.getReader()
+    val payloadJson = Json.parse(reader.readLine())
+    val json = payloadJson("newRecord")
+
+    val mail: String = json("mail").as[String]
+    val password: String = json("pwd").as[String]
+    val mobile: String = json("mobile").as[String]
+    val name: String = json("name").as[String]
+    val types: String = json("type").as[String]
+    val regNo: String = json("regNo").as[String]
+    val ownerName: String = json("ownerName").as[String]
+    val pin: String = json("pin").as[String]
+
+    val dbs: newUserDb = new newUserDb()
+
 
     val out1:String = dbs.insertUserDetails(name,mail,mobile,password)
     val out2:String = dbs.insertVehicleDetails(mail,types,regNo,ownerName)

@@ -19,7 +19,7 @@ class newUserDb {
   def insertUserDetails(name: String, mail: String, mobile: String, pass:String) = {
     var result:String = null
     try {
-      stmt = con.prepareStatement("insert into User_Details values(?,?,?,?)")
+      stmt = con.prepareStatement("insert into User_Details (Name,Mail,Mobile,Password) values(?,?,?,?)")
       stmt.setString(1, name)
       stmt.setString(2, mail)
       stmt.setString(3, mobile)
@@ -33,7 +33,7 @@ class newUserDb {
   }
   def insertVehicleDetails(mail: String, types: String, regNo: String, ownerName:String) = {
     var result:String = null
-    val temp: String = types
+    var temp: String = types
     var amt:String = null
     temp match {
       case "type1" => amt = "85"

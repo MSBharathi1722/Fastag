@@ -3,7 +3,6 @@ import javax.servlet.http._
 import java.io._
 import play.api.libs.json._
 
-
 class login extends HttpServlet {
 
   override def doGet(request: HttpServletRequest, response: HttpServletResponse): Unit = {

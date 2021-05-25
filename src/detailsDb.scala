@@ -17,28 +17,6 @@ class detailsDb {
     case e: SQLException => println(e)
   }
 
-  /*def selectQuery(mail: String): Map[String, String]{
-    var result:Map[String,String] = null
-    try {      
-        stmt = con.prepareStatement("select * from User_Details where Mail=?")
-      
-      if (stmt.execute()) {
-        rs = stmt.getResultSet
-        while (rs.next()) {
-          result = Map(("name"->rs.getString("Name")),("mail"->rs.getString("Mail")),("mobile"->rs.getString("Mobile")))
-        }
-      } else {
-        println("no execution .....")
-      }
-    } catch {
-      case ee: Exception => {
-        println("Error while executing the query ......" + ee.getMessage)
-        result = Map("Status"->"fail")
-      }
-
-    }
-    result
-  }*/
   def userQuery(mail: String,option:String):String = {
     var result:String = null
     try {      
@@ -83,10 +61,10 @@ class detailsDb {
     }
     result
   }
-  def selectQuery(mail: String):String = {
+  def selectQuery(mail: String, option: String):String = {
     var result:String = null
     try {      
-        stmt = con.prepareStatement("select Avail_Bal from Balance_Details where Mail=?")
+        stmt = con.prepareStatement("select "+option+" from Balance_Details where Mail=?")
         stmt.setString(1,mail);
       if (stmt.execute()) {
         rs = stmt.getResultSet

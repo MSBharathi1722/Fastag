@@ -16,7 +16,7 @@ class paymentDb {
 
   }
 
-  def updateBalance(mail: String, amount:String):String = {
+  def updateBalance(mail:String , amount:String):String = {
     var result:String = "false"
     try {
       stmt = con.prepareStatement("update Balance_Details set Avail_Bal=? where Mail=?")

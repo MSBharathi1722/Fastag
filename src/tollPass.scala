@@ -9,13 +9,14 @@ class tollPass extends HttpServlet {
 	override def doGet(request: HttpServletRequest, response: HttpServletResponse) {
 		val mail: String = request.getParameter("mail")
 		val place: String = request.getParameter("place")
+		val tim : String = request.getParameter("time")
 		val time: String = timeNow()
 	    response.setContentType("applicaton/json")
 	    response.setCharacterEncoding("utf-8")
 		val out: PrintWriter = response.getWriter
 		val db: tollPassDb = new tollPassDb()
 
-		val status:String = db.insertTravelDetails(mail,place,time)
+		val status:String = db.insertTravelDetails(mail,place,time,tim)
 		var maps = Map("status"->status)
         out.println(Json.toJson(maps))
     }
