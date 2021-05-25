@@ -10,6 +10,7 @@ export default class SignupController extends Controller {
   @tracked third=false;
   @tracked type;
   @service store;
+  @tracked payment=false;
 
   @action
   choose(value){
@@ -50,6 +51,11 @@ export default class SignupController extends Controller {
       alert("Invalid Registration Number")
     }
   }
+  // @action
+  // final(){
+  //   this.third = false;
+  //   this.payment = true;
+  // }
 
   @action
   check(){

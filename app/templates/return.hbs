@@ -9,7 +9,7 @@
           @value={{this.place}}
         /><br>
         {{!-- template-lint-disable no-action --}}
-        <button id="bt" type="button" {{action this.check}}>Continue</button>
+        <button id="bt" type="button" {{action this.validate}}>Continue</button>
       </form>
 {{/unless}}
 {{#if this.receipt}}
@@ -22,7 +22,7 @@
                 <h1 id="h1">Success</h1>
 
                 {{!-- template-lint-disable no-action --}}
-                <p id="p">Free Return Available<br/> <button type="button" {{action this.reload}} ><LinkTo @route="home">Go to home?</LinkTo></button> </p>
+                <p id="p">Free Return Available<br/> Place : {{this.place}} Toll Plaza<br>THANK YOU<br><button type="button" {{action this.reload}} ><LinkTo @route="home">Go to home?</LinkTo></button> </p>
           </div>
         </div>
 {{/if}}

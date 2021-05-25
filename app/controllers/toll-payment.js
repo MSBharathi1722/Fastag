@@ -12,7 +12,7 @@ export default class TollPaymentController extends Controller {
   @action
   validate(){
     if(this.place != null){
-      this.first=true;
+      //this.first=true;
       this.second=true;
     }
   }

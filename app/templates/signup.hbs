@@ -70,15 +70,95 @@
             <Input
                 class="input"
                 aria-label="pin"
-                @type="text"
+                @type="password"
                 placeholder="****"
                 @value={{this.pin}}
               /><br>
               {{!-- template-lint-disable no-action --}}
+
             <button type="button" {{action this.check}}>Continue</button>
+
+            {{#if this.payment}}
+              <div class="app-container">
+              <div class="top-box">
+                <p>CHECKOUT</p>
+              </div>
+              <div class="middle-box">
+
+                <h1>
+                  <label>Amount:</label><br>
+                  50
+                  <span id="sp1">$</span>
+                </h1>
+
+              </div>
+              <div class="bottom-box">
+                <div class="card-details">
+                  <p>Pay Usin g Credit or Debit Card</p>
+                  <div class="card-num-field-group">
+                    <label>Card Number</label><br>
+                    {{!-- template-lint-disable no-duplicate-attributes --}}
+                    <Input
+                          class="input"
+                          aria-label="Card Number"
+                          class="card-num-field"
+                          @type="text"
+                          placeholder="xxxx-xxxx-xxxx-xxxx"
+                          @value={{this.cardNo}}
+                    />
+                  </div>
+                  <div class="date-field-group">
+                    <label>Expiry Date</label><br>
+                    {{!-- template-lint-disable no-duplicate-attributes --}}
+                    <Input
+                          class="input"
+                          aria-label="Expiry"
+                          class="date-field"
+                          @type="text"
+                          placeholder="mm"
+                          @value={{this.mm}}
+                    />
+                    <Input
+                          class="input"
+                          aria-label="Expiry"
+                          class="date-field"
+                          @type="text"
+                          placeholder="yy"
+                          @value={{this.yy}}
+                    />
+                  </div>
+                  <div class="cvv-field-group">
+                    <label>Cvv</label><br>
+                    {{!-- template-lint-disable no-duplicate-attributes --}}
+                    <Input
+                          class="input"
+                          aria-label="CVV Number"
+                          class="cvv-field"
+                          @type="password"
+                          placeholder="***"
+                          @value={{this.cvv}}
+                    />
+                  </div>
+                  <div class="name-field-group">
+                    <label>Card Holder Name</label><br>
+                    {{!-- template-lint-disable no-duplicate-attributes --}}
+                    <Input
+                          class="input"
+                          aria-label="CVV Number"
+                          class="name-field"
+                          @type="text"
+                          placeholder="Name"
+                          @value={{this.name}}
+                    />
+                  </div>
+                  {{!-- template-lint-disable no-action --}}
+                  <button type="button" class="pay-btn" {{action this.check}}>Create Account</button>
+                </div>
+              </div>
+            </div>
+            {{/if}}
          {{/if}}
-</form>
+    </form>
   </div>
-  <div class="box3"></div>
 </div>
 {{outlet}}

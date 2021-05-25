@@ -19,6 +19,9 @@
   height: auto;
   text-align: center;
 }
+.inBox h4{
+  color: red;
+}
 .span{
   background-color: white;
   padding: 10px;

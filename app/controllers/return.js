@@ -5,31 +5,36 @@ import { tracked } from '@glimmer/tracking';
 export default class ReturnController extends Controller {
   @service user;
   @service router;
-  @tracked timeNow = new Date().getTime();
   @tracked content = false;
   @tracked receipt = false;
   @action
-  check(){
-    let response = this.store.createRecord('return', { mail:this.user.mail });
-    response.place = this.place;
-    response.save();//.//then(this.start());
+  validate(){
+    var response = this.store.queryRecord('return', { mail : this.user.mail, place: this.place})
+    .then((retur) => {
+      let time = retur.get('Time');
+      if((parseInt(new Date().getTime()) - parseInt(time)) < 1800000){
+        this.true();
+      }else{
+        this.false();
+      }
+    });
   }
-  start(){
-    let response = this.store.peekRecord('return', this.user.mail);
-    console.log(response);
-    if((parseInt(this.timeNow) - parseInt(response.Time)) < 1800000){
+  true(){
       this.content = true;
       this.receipt = true;
       let data = this.store.peekRecord('get-detail', this.user.mail);
-      data.Avail_Bal = parseInt(data.Avail_Bal) - (parseInt(data.Amount))/2;
-      this.content = false;
-      this.receipt = false;
-      this.place="";
-    }else{
-      alert("You Don't have a valid return pass");
-      this.router.transitionTo("tollPayment");
-      this.content = false;
-      this.receipt = false;
-    }
+      data.Avail_Bal = (parseInt(data.Avail_Bal) - (parseInt(data.Amount))/2).toString();
+      data.save();
+  }
+  false(){
+    alert("Not a valid Return");
+    this.router.transitionTo("home");
+  }
+  @action
+  reload(){
+    this.content = false;
+    this.receipt = false;
+    this.place="";
+    this.pin="";
   }
 }
