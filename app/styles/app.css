@@ -1,20 +1,119 @@
 @import './index.css';
 @import './sucess.css';
 
-.padding {
-  padding: 5rem !important
+.app-container{
+  height: 700px;
+  width: 365px;
+  background-image: linear-gradient(#58038f,#9200ff);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  position: absolute;
 }
 
-.form-control:focus {
-  box-shadow: 10px 0px 0px 0px #ffffff !important;
-  border-color: #4ca746
+.top-box{
+  height: 150px;
+  background-color: #9100fb;
+  border-bottom-left-radius: 80px;
+  border-bottom-right-radius: 80px;
 }
-.col-md-6 text-right{
-  margin-top: -5px;
+.top-box p{
+  text-align: center;
+  padding-top: 20px;
+  color: #fff;
 }
-.card-body{
-  height: 350px;
+.middle-box{
+  height: 150px;
+  background-image: linear-gradient(#580e8f,#9200ff);
+  margin: -70px 30px 20px;
+  color:#fff;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 10px;
 }
-.btn btn-success btn-lg form-control{
-  font-size: .8rem;
+.middle-box h1{
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-size: 30px;
+  font-weight: normal;
+}
+.middle-box h1 #sp1{
+  font-size: 20px;
+  margin-left: 5px;
+  bottom: 18px;
+  position: relative;
+}
+.card-details{
+  background: #fff;
+  color: #555;
+  margin: 10px 30px;
+  padding: 10px;
+}
+.card-details p
+{
+  font-size: 14px;
+}
+.card-details label{
+  font-size: 10px;
+  line-height: 20px;
+}
+.card-num-field-group{
+  margin-top: 10px;
+}
+.date-field-group{
+  margin-top: 10px;
+  display: inline-block;
+}
+.cvv-field-group{
+  margin-top: 10px;
+  display: inline-block;
+  float: right;
+}
+.name-field-group{
+  margin-top: 10px;
+}
+.card-num-field , .name-field{
+  width: 270px;
+}
+.date-field , .cvv-field {
+  width: 80px;
+}
+.card-details input{
+  border: 1px solid #ccc;
+  height: 22px;
+  padding: 5px;
+  font-size: 10px;
+}
+.pay-btn{
+  width: 280px;
+  color: #fff;
+  margin-top: 20px;
+  height: 30px;
+  background-color: #9100fd;
+  border: none;
+  cursor: pointer;
+}
+#home{
+  height: 800px;
+  width: 500px;
+  background-image: linear-gradient(#58038f,#9200ff);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  position: absolute;
+  color: white;
+  text-align: center;
+}
+#home h3{
+  font-size: 30px;
+  padding-top: 50px;
+}
+.btn{
+  width: 280px;
+  color: #fff;
+  margin-top: 20px;
+  height: 30px;
+  /* background-color: #9100fd; */
+  border: none;
+  /* cursor: pointer; */
 }

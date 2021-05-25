@@ -1,8 +1,16 @@
-    <h3>hello {{this.name}},</h3>
-    <LinkTo @route="tollPayment"><h4>pay for a toll?</h4></LinkTo>
-    <LinkTo @route="return"><h4>Return?</h4></LinkTo>
-    <LinkTo @route="payment">recharge your fastag account?</LinkTo>
-    {{!-- template-lint-disable no-action --}}
-    {{!-- <button type="button" {{action this.returns}}>Return ?</button> --}}
-    <h3>Available Balance {{this.balance}}</h3>
+<div id="home">
+
+    <h3>hello {{this.model.Name}},</h3>
+    <button type="button" class="btn"><LinkTo @route="tollPayment">pay for a toll?</LinkTo></button>
+    <button type="button" class="btn"><LinkTo @route="return">Return?</LinkTo></button>
+    <h1>User-Details</h1>
+    <h2>Name : <br>{{this.model.Name}}</h2>
+    <h2>Mail :<br> {{this.model.Mail}}</h2>
+    <h2>Vehicle No. : <br>{{this.model.Reg_No}}</h2>
+    <h1>Available Balance <br>{{this.model.Avail_Bal}}</h1>
+    <button type="button" class="btn"><LinkTo @route="payment">recharge?</LinkTo></button>
+
+
+</div>
+
 {{outlet}}

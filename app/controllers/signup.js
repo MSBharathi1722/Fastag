@@ -4,11 +4,12 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 export default class SignupController extends Controller {
   @service router;
-  //@service user;
+  @service user;
   @tracked first=false;
   @tracked second=false;
   @tracked third=false;
   @tracked type;
+  @service store;
 
   @action
   choose(value){
@@ -51,14 +52,21 @@ export default class SignupController extends Controller {
   }
 
   @action
-  async check(){
-    const response = await fetch("http://localhost:8080/fastag/signup?mail="+this.mail+"&pwd="+this.pwd+"&mobile="+this.mobile+"&name="+this.name+"&type="+this.type+"&regNo="+this.regNo+"&ownerName="+this.ownerName+"&pin="+this.pin);
-    const data = await response.json();
-    console.log(data);
-    if(data.status == "true"){
-      alert("Fastag Account Created Successfully, login to continue");
-      this.router.transitionTo("index");
-    }
+  check(){
+    var response = this.store.createRecord('new-record', { id : this.mail});
+    response.mail = this.mail;
+    response.pwd = this.pwd;
+    response.mobile = this.mobile;
+    response.name = this.name;
+    response.type =this.type;
+    response.regNo = this.regNo;
+    response.ownerName = this.ownerName;
+    response.pin = this.pin;
+
+    response.save();
+
+    alert("Fastag Account Created Successfully, login to continue");
+    this.router.transitionTo("index");
   }
 
   validateEmail(email) {

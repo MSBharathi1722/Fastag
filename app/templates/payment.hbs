@@ -1,50 +1,87 @@
 <div class="box1">
   <div class="box2">
     {{#unless this.valid}}
-          <form>
-            <label>Amount:</label>
-        <Input
-              class="input"
-              aria-label="Amount"
-              @type="text"
-              placeholder="min 300"
-              @value={{this.amt}}
-        /><br>
-        <label>Card Number:</label>
-        <Input
-              class="input"
-              aria-label="Card Number"
-              @type="text"
-              placeholder="Card Number"
-              @value={{this.cardNo}}
-        /><br>
-      <label>Expiry:</label>
-        <Input
-            class="input"
-            aria-label="Expiry Date"
-            @type="text"
-            placeholder="MM/YY"
-            @value={{this.expDate}}
-        /><br>
-        <label>CVV:</label>
-        <Input
-            class="input"
-            aria-label="cvv"
-            @type="text"
-            placeholder="***"
-            @value={{this.cvv}}
-        /><br>
-        <label>Passcode:</label>
-        <Input
-            class="input"
-            aria-label="Passcode"
-            @type="text"
-            placeholder="pin"
-            @value={{this.pin}}
-        />
-            {{!-- template-lint-disable no-action --}}
-            <button id="button" type="button" {{action this.validate}}>Pay</button>
-      </form>
+          <div class="app-container">
+            <div class="top-box">
+              <p>CHECKOUT</p>
+            </div>
+            <div class="middle-box">
+
+              <h1>
+                <label>Amount:</label><br>
+                <Input
+                        class="input"
+                        aria-label="Amount"
+                        @type="text"
+                        placeholder="Amount"
+                        @value={{this.amt}}
+                  /><span id="sp1">$</span> </h1>
+
+            </div>
+            <div class="bottom-box">
+              <div class="card-details">
+                <p>Pay Usin g Credit or Debit Card</p>
+                <div class="card-num-field-group">
+                  <label>Card Number</label><br>
+                  {{!-- template-lint-disable no-duplicate-attributes --}}
+                  <Input
+                        class="input"
+                        aria-label="Card Number"
+                        class="card-num-field"
+                        @type="text"
+                        placeholder="xxxx-xxxx-xxxx-xxxx"
+                        @value={{this.cardNo}}
+                  />
+                </div>
+                <div class="date-field-group">
+                  <label>Expiry Date</label><br>
+                  {{!-- template-lint-disable no-duplicate-attributes --}}
+                  <Input
+                        class="input"
+                        aria-label="Expiry"
+                        class="date-field"
+                        @type="text"
+                        placeholder="mm"
+                        @value={{this.mm}}
+                  />
+                  <Input
+                        class="input"
+                        aria-label="Expiry"
+                        class="date-field"
+                        @type="text"
+                        placeholder="yy"
+                        @value={{this.yy}}
+                  />
+                </div>
+                <div class="cvv-field-group">
+                  <label>Cvv</label><br>
+                  {{!-- template-lint-disable no-duplicate-attributes --}}
+                  <Input
+                        class="input"
+                        aria-label="CVV Number"
+                        class="cvv-field"
+                        @type="password"
+                        placeholder="***"
+                        @value={{this.cvv}}
+                  />
+                </div>
+                <div class="name-field-group">
+                  <label>Card Holder Name</label><br>
+                  {{!-- template-lint-disable no-duplicate-attributes --}}
+                  <Input
+                        class="input"
+                        aria-label="CVV Number"
+                        class="name-field"
+                        @type="text"
+                        placeholder="Name"
+                        @value={{this.name}}
+                  />
+                </div>
+                {{!-- template-lint-disable no-action --}}
+                <button type="button" class="pay-btn" {{action this.recharge}}>Pay Now</button>
+              </div>
+            </div>
+          </div>
     {{/unless}}
     {{#if this.success}}
       <div class="body">
@@ -54,7 +91,9 @@
               <i class="checkmark">✓</i>
             </div>
               <h1 id="h1">Success</h1>
-              <p id="p">Payment Successful;<br/> <LinkTo @route="home">Go to home?</LinkTo></p>
+
+              {{!-- template-lint-disable no-action --}}
+              <p id="p">Payment Successful;<br/> <button type="button" {{action this.reload}} ><LinkTo @route="home">Go to home?</LinkTo></button> </p>
         </div>
       </div>
     {{/if}}

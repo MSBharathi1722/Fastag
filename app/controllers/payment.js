@@ -4,24 +4,48 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 export default class PaymentController extends Controller {
   @service user;
+  @service router;
   @tracked success=false;
   @tracked valid=false;
   @action
-  async validate(){
-    if(this.cardNo.length == 16 && this.cvv.length == 3){
-      if(this.isvalidDate()){
-        const response = await fetch("http://localhost:8080/fastag/addBal?mail="+this.user.mail+"&pin="+this.pin+"&amt="+this.amt);
-        const data = await response.json();
-        if(data.Status == 'true'){
-          this.valid=true;
-          this.success=true;
+  recharge(){
+    if(this.isValidAccNo(this.cardNo)){
+      if(this.cvv.length == 3){
+        if(/*this.isValidDate(this.mm)*/true){
+          if(/*this.isValidDate(this.yy)*/true){
+            let response = this.store.peekRecord('get-detail', this.user.mail);
+            response.Avail_Bal = (parseInt(response.Avail_Bal) + parseInt(this.amt)).toString();
+            response.save();
+            this.valid=true;
+            this.success=true;
+          }else{
+            alert("Enter a valid Expiry Year");
+          }
         }else{
-          alert("invalid Pin");
+          alert("Enter a valid Expiry Month");
         }
+      }else{
+        alert("Enter a valid CVV Number");
       }
+    }else{
+      alert("Enter a valid Account Number");
     }
   }
-  isvalidDate(dat){
-    return true;
+  isValidAccNo(num){
+    return (num.length == 16)/* && (typeof num == "number")*/;
+  }
+  isValidDate(num){
+    return num.length == 2;
+  }
+  reload(){
+    this.success = false;
+    this.valid = false;
+    this.amt = "";
+    this.mm = "";
+    this.yy = "";
+    this.cardNo ="";
+    this.cvv = "";
+    this.name = "";
+    this.router.transitionTo("home");
   }
 }

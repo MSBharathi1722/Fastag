@@ -11,6 +11,8 @@ export default class IndexController extends Controller {
     if(data.Status === 'true'){
       this.user.addMail(this.mail);
       this.router.transitionTo("home");
+      this.mail="";
+      this.pwd="";
     }
     else{
       alert("Invalid Credentials");

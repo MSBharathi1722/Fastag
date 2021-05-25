@@ -17,7 +17,7 @@ export default class HomeController extends Controller {
   @tracked return=false;
 
   @action
-  async returns(){
+  returns(){
     // const response = await fetch("http://localhost:8080/fastag/return?mail="+this.user.mail+"&amt="+this.user.amount);
     // const data = await response.json();
     // console.log(data);

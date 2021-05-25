@@ -10,8 +10,6 @@ Router.map(function () {
   this.route('signup');
   this.route('home');
   this.route('payment');
-  this.route('receipt');
   this.route('tollPayment');
-  this.route('success');
   this.route('return');
 });

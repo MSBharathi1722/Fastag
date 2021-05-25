@@ -20,7 +20,22 @@
           placeholder="PIN"
           @value={{this.pin}}
         />
-        <button type="button" {{action this.check}}>Pay</button>
+        <button type="button" {{action this.pay}}>Pay</button>
+      {{/if}}
+
+      {{#if this.receipt}}
+        <div class="body">
+          <div class="card">
+              {{!-- template-lint-disable no-inline-styles --}}
+              <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+                <i class="checkmark">✓</i>
+              </div>
+                <h1 id="h1">Success</h1>
+
+                {{!-- template-lint-disable no-action --}}
+                <p id="p">Payment Successful;<br/> <button type="button" {{action this.reload}} ><LinkTo @route="home">Go to home?</LinkTo></button> </p>
+          </div>
+        </div>
       {{/if}}
 
     </form>
