@@ -3,12 +3,12 @@ import javax.servlet.http._
 import java.io._
 import play.api.libs.json._
 
-class login extends HttpServlet {
+class Login extends HttpServlet {
 
   override def doGet(request: HttpServletRequest, response: HttpServletResponse): Unit = {
     val mail: String = request.getParameter("mail")
     val password: String = request.getParameter("pwd")
-    val dbs: userDb = new userDb()
+    val dbs: UserDb = new UserDb()
     var passw: String = dbs.selectQuery(mail)
     response.setContentType("applicaton/json")
     response.setCharacterEncoding("utf-8")

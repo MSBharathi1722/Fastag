@@ -23,7 +23,7 @@ export default class ReturnController extends Controller {
       this.content = true;
       this.receipt = true;
       let data = this.store.peekRecord('get-detail', this.user.mail);
-      data.Avail_Bal = (parseInt(data.Avail_Bal) - (parseInt(data.Amount))/2).toString();
+      data.Avail_Bal = parseInt((parseInt(data.Avail_Bal) + (parseInt(data.Amount))/2)).toString();
       data.save();
   }
   false(){

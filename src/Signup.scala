@@ -4,7 +4,7 @@ import java.io._
 import play.api.libs.json._
 
 
-class signup extends HttpServlet {
+class Signup extends HttpServlet {
 
   override def doPost(request: HttpServletRequest, response: HttpServletResponse) {
     response.setContentType("applicaton/json")
@@ -24,7 +24,7 @@ class signup extends HttpServlet {
     val ownerName: String = json("ownerName").as[String]
     val pin: String = json("pin").as[String]
 
-    val dbs: newUserDb = new newUserDb()
+    val dbs: NewUserDb = new NewUserDb()
 
 
     val out1:String = dbs.insertUserDetails(name,mail,mobile,password)

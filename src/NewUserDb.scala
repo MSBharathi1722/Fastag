@@ -1,6 +1,6 @@
 import java.sql._
 
-class newUserDb {
+class NewUserDb {
 
   private var con: Connection = null
 

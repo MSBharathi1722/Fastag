@@ -20,7 +20,7 @@ export default class TollPaymentController extends Controller {
     let response = this.store.peekRecord('get-detail', this.user.mail);
     if(parseInt(response.Avail_Bal) > parseInt(response.Amount)){
       if(response.Pin === this.pin){
-        response.Avail_Bal = (parseInt(response.Avail_Bal) - parseInt(response.Amount)).toString();
+        response.Avail_Bal = parseInt((parseInt(response.Avail_Bal) - parseInt(response.Amount))).toString();
         response.save();
         this.second = false;
         this.time =new Date().getTime();;

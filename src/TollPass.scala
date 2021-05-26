@@ -5,7 +5,7 @@ import play.api.libs.json._
 import java.time._
 import java.time.format.DateTimeFormatter
 
-class tollPass extends HttpServlet {
+class TollPass extends HttpServlet {
 	override def doGet(request: HttpServletRequest, response: HttpServletResponse) {
 		val mail: String = request.getParameter("mail")
 		val place: String = request.getParameter("place")
@@ -14,7 +14,7 @@ class tollPass extends HttpServlet {
 	    response.setContentType("applicaton/json")
 	    response.setCharacterEncoding("utf-8")
 		val out: PrintWriter = response.getWriter
-		val db: tollPassDb = new tollPassDb()
+		val db: TollPassDb = new TollPassDb()
 
 		val status:String = db.insertTravelDetails(mail,place,time,tim)
 		var maps = Map("status"->status)

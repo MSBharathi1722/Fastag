@@ -1,16 +1,21 @@
 {{#unless this.content}}
-  <form>
-    <label>place:</label>
-       <Input
+  <div class="returnBox1">
+    <h2>Check For a valid Return</h2>
+    <form>
+      <label>Toll place:</label><br>
+      <Input
           class="input"
           aria-label="Toll Place"
           @type="text"
-          placeholder="TollGate Place"
+          placeholder=""
           @value={{this.place}}
-        /><br>
+      /><br><br>
         {{!-- template-lint-disable no-action --}}
-        <button id="bt" type="button" {{action this.validate}}>Continue</button>
-      </form>
+      <button id="bt" type="button" {{action this.validate}}>Proceed</button>
+      <p>You can avail your free return if you have crossed this poll within 30 minutes<br>Else do a fresh payment for toll</p>
+    </form>
+  </div>
+
 {{/unless}}
 {{#if this.receipt}}
 <div class="body">
@@ -22,7 +27,7 @@
                 <h1 id="h1">Success</h1>
 
                 {{!-- template-lint-disable no-action --}}
-                <p id="p">Free Return Available<br/> Place : {{this.place}} Toll Plaza<br>THANK YOU<br><button type="button" {{action this.reload}} ><LinkTo @route="home">Go to home?</LinkTo></button> </p>
+                <p id="p">Free Return Available<br/> Place : {{this.place}} Toll Plaza<br>THANK YOU<br><button type="button" {{action this.reload}} ><LinkTo @route="home">Go to home?</LinkTo></button><br> </p>
           </div>
         </div>
 {{/if}}

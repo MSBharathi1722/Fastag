@@ -9,26 +9,30 @@ export default class PaymentController extends Controller {
   @tracked valid=false;
   @action
   recharge(){
-    if(this.isValidAccNo(this.cardNo)){
-      if(this.cvv.length == 3){
-        if(/*this.isValidDate(this.mm)*/true){
-          if(/*this.isValidDate(this.yy)*/true){
-            let response = this.store.peekRecord('get-detail', this.user.mail);
-            response.Avail_Bal = (parseInt(response.Avail_Bal) + parseInt(this.amt)).toString();
-            response.save();
-            this.valid=true;
-            this.success=true;
+    if(this.amt>0 && parseInt(this.amt)){
+      if(this.isValidAccNo(this.cardNo)){
+        if(this.cvv.length == 3){
+          if(/*this.isValidDate(this.mm)*/true){
+            if(/*this.isValidDate(this.yy)*/true){
+              let response = this.store.peekRecord('get-detail', this.user.mail);
+              response.Avail_Bal = parseInt(parseInt(response.Avail_Bal) + parseInt(this.amt)).toString();
+              response.save();
+              this.valid=true;
+              this.success=true;
+            }else{
+              alert("Enter a valid Expiry Year");
+            }
           }else{
-            alert("Enter a valid Expiry Year");
+            alert("Enter a valid Expiry Month");
           }
         }else{
-          alert("Enter a valid Expiry Month");
+          alert("Enter a valid CVV Number");
         }
       }else{
-        alert("Enter a valid CVV Number");
+        alert("Enter a valid Account Number");
       }
     }else{
-      alert("Enter a valid Account Number");
+      alert("Invalid Amount ")
     }
   }
   isValidAccNo(num){

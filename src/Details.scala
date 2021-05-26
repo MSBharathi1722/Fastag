@@ -8,7 +8,7 @@ class Details extends HttpServlet {
 		val mail: String = request.getParameter("mail")
 	    response.setContentType("applicaton/json")
 		val out: PrintWriter = response.getWriter
-		val detail: detailsDb = new detailsDb()
+		val detail: DetailsDb = new DetailsDb()
 		var name = detail.userQuery(mail,"Name")
 		var mobile = detail.userQuery(mail,"Mobile")
 		var types = detail.vehicleQuery(mail,"Type")
@@ -29,7 +29,7 @@ class Details extends HttpServlet {
 		val json = payloadJson("getDetail")
 		val mail = json("Mail").as[String]
 		val availBal = json("Avail_Bal").as[String]
-		val db: paymentDb = new paymentDb()
+		val db: PaymentDb = new PaymentDb()
 		val status:String = db.updateBalance(mail,availBal)
 		var maps = Map("status"->mail)
         out.println(Json.toJson(maps))

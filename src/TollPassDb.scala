@@ -1,6 +1,6 @@
 import java.sql._
 
-class tollPassDb {
+class TollPassDb {
 
   private var con: Connection = null
 
