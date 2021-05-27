@@ -7,14 +7,17 @@ import java.time.format.DateTimeFormatter
 
 class TollPass extends HttpServlet {
 	override def doGet(request: HttpServletRequest, response: HttpServletResponse) {
-		val mail: String = request.getParameter("mail")
-		val place: String = request.getParameter("place")
-		val tim : String = request.getParameter("time")
-		val time: String = timeNow()
-	    response.setContentType("applicaton/json")
+
+		response.setContentType("applicaton/json")
 	    response.setCharacterEncoding("utf-8")
 		val out: PrintWriter = response.getWriter
-		val db: TollPassDb = new TollPassDb()
+		val db: DBHandler = new DBHandler()
+
+		val mail = request.getParameter("mail")
+		val place = request.getParameter("place")
+		val tim = request.getParameter("time")
+		val time = timeNow()
+
 
 		val status:String = db.insertTravelDetails(mail,place,time,tim)
 		var maps = Map("status"->status)

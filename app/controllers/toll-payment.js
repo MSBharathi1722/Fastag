@@ -7,32 +7,37 @@ export default class TollPaymentController extends Controller {
   @service user;
   @tracked time ;
   @tracked first = false;
-  @tracked second = false;
   @tracked receipt = false;
   @action
-  validate(){
+  validatePlace(){
     if(this.place != null){
-      //this.first=true;
-      this.second=true;
+      return true;
+    }else{
+      return false;
     }
   }
   pay(){
-    let response = this.store.peekRecord('get-detail', this.user.mail);
-    if(parseInt(response.Avail_Bal) > parseInt(response.Amount)){
-      if(response.Pin === this.pin){
-        response.Avail_Bal = parseInt((parseInt(response.Avail_Bal) - parseInt(response.Amount))).toString();
-        response.save();
-        this.second = false;
-        this.time =new Date().getTime();;
-        this.store.queryRecord('travel', { mail : this.user.mail, place : this.place , time : this.time});
-        this.receipt = true;
+    if(this.validatePlace()){
+      let response = this.store.peekRecord('get-detail', this.user.mail);
+      if(parseInt(response.Avail_Bal) > parseInt(response.Amount)){
+        if(response.Pin === this.pin){
+          response.Avail_Bal = parseInt((parseInt(response.Avail_Bal) - parseInt(response.Amount))).toString();
+          response.save().then((start) => {
+            this.first = true;
+            this.time =new Date().getTime();;
+            this.store.queryRecord('travel', { mail : this.user.mail, place : this.place , time : this.time});
+            this.receipt = true;
+          });
+        }else{
+          alert("Invalid Pin");
+        }
       }else{
-        alert("Invalid Pin");
+        alert("You Don't have enough Balance");
+        this.router.transitionTo("home");
+        this.reload();
       }
     }else{
-      alert("You Don't have enough Balance");
-      this.router.transitionTo("home");
-      this.reload();
+      alert("Enter a valid Toll Location");
     }
   }
   @action

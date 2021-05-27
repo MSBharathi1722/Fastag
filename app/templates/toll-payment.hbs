@@ -1,45 +1,40 @@
-<div class="box1">
-  <div class="box2">
+{{#unless this.first}}
+  <div id="tollbox">
     <form>
-      {{#unless this.first}}
-        <Input
-          class="input"
-          aria-label="Toll Place"
-          @type="text"
-          placeholder="TollGate Place"
-          @value={{this.place}}
-        />
-        {{!-- template-lint-disable no-action --}}
-        <button type="button" {{action this.validate}}>Continue</button>
-      {{/unless}}
-      {{#if this.second}}
-        <Input
-          class="input"
-          aria-label="Pin"
-          @type="text"
-          placeholder="PIN"
-          @value={{this.pin}}
-        />
-        <button type="button" {{action this.pay}}>Pay</button>
-      {{/if}}
-
-      {{#if this.receipt}}
-        <div class="body">
-          <div class="card">
-              {{!-- template-lint-disable no-inline-styles --}}
-              <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
-                <i class="checkmark">✓</i>
-              </div>
-                <h1 id="h1">Success</h1>
-
-                {{!-- template-lint-disable no-action --}}
-                <p id="p">Payment Successful;<br/><br> Place : {{this.place}} Toll Plaza<br>THANK YOU<br><button type="button" {{action this.reload}} ><LinkTo @route="home">Go to home?</LinkTo></button> </p>
-          </div>
-        </div>
-      {{/if}}
-
+      <Input
+        class="input"
+        aria-label="Toll Place"
+        @type="text"
+        placeholder="TollGate Place"
+        @value={{this.place}}
+      />
+      <Input
+        class="input"
+        aria-label="Pin"
+        @type="text"
+        placeholder="PIN"
+        @value={{this.pin}}
+      />
+      {{!-- template-lint-disable no-action --}}
+      <button type="button" {{action this.pay}}>Pay</button>
     </form>
   </div>
-  <div class="box3"></div>
-</div>
+{{/unless}}
+
+{{#if this.receipt}}
+  <div class="body">
+    <div class="card">
+    {{!-- template-lint-disable no-inline-styles --}}
+      <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+        <i class="checkmark">✓</i>
+      </div>
+      <h1 id="h1">Success</h1>
+      {{!-- template-lint-disable no-action --}}
+      <p id="p">Payment Successful;<br/><br> Place : {{this.place}} Toll Plaza<br>THANK YOU<br><button type="button" {{action this.reload}} ><LinkTo @route="home">Go to home?</LinkTo></button> </p>
+    </div>
+  </div>
+{{/if}}
+
+
+
 {{outlet}}

@@ -12,10 +12,9 @@ class ReturnTime extends HttpServlet{
 	    response.setContentType("applicaton/json")
 	    response.setCharacterEncoding("utf-8")
 		val out: PrintWriter = response.getWriter
-		val db: ReturnDb = new ReturnDb()
+		val db: DBHandler = new DBHandler()
 		
-		val time: String = db.getRecord(mail,place)
-		var maps = Map(("Mail"->mail),("Time"->time))
-		out.println(Json.toJson(Map("return"->maps)))
+		val result = db.getTravelDetails(mail)
+		out.println(Json.toJson(Map("return"->result)))
 	}
 }

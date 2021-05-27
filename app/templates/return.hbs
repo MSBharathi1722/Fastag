@@ -1,19 +1,31 @@
 {{#unless this.content}}
   <div class="returnBox1">
-    <h2>Check For a valid Return</h2>
-    <form>
-      <label>Toll place:</label><br>
-      <Input
-          class="input"
-          aria-label="Toll Place"
-          @type="text"
-          placeholder=""
-          @value={{this.place}}
-      /><br><br>
-        {{!-- template-lint-disable no-action --}}
-      <button id="bt" type="button" {{action this.validate}}>Proceed</button>
-      <p>You can avail your free return if you have crossed this poll within 30 minutes<br>Else do a fresh payment for toll</p>
-    </form>
+    <h2>Your Last few Travel Details</h2>
+    {{#if this.firstData}}
+      <div class="content">
+        <div><h3>{{this.firstData.Place}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.firstData.Time}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" {{on 'click' (fn this.pay this.firstData.id)}}>Pay</button></h3></div>
+      </div>
+    {{/if}}
+    {{#if this.secondData}}
+      <div class="content">
+        <div><h3>{{this.secondData.Place}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.secondData.Time}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" {{on 'click' (fn this.pay this.secondData.id)}}>Pay</button></h3></div>
+      </div>
+    {{/if}}
+    {{#if this.thirdData}}
+      <div class="content">
+        <div><h3>{{this.thirdData.Place}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.thirdData.Time}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" {{on 'click' (fn this.pay this.thirdData.id)}}>Pay</button></h3></div>
+      </div>
+    {{/if}}
+    {{#if this.fourthData}}
+      <div class="content">
+        <div><h3>{{this.fourthData.Place}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.fourthData.Time}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" {{on 'click' (fn this.pay this.fourthData.id)}}>Pay</button></h3></div>
+      </div>
+    {{/if}}
+    {{#if this.fifthData}}
+      <div class="content">
+        <div><h3>{{this.fifthData.Place}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{this.fifthData.Time}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" {{on 'click' (fn this.pay this.fifthData.id)}}>Pay</button></h3></div>
+      </div>
+    {{/if}}
   </div>
 
 {{/unless}}

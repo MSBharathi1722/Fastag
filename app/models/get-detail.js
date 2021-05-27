@@ -7,7 +7,5 @@ export default class GetDetailModel extends Model {
   @attr Reg_No;
   @attr Avail_Bal;
   @attr Amount;
-  @attr Owner_Name;
-  @attr Type;
   @attr Pin;
 }

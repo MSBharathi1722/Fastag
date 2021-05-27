@@ -8,17 +8,17 @@ class Login extends HttpServlet {
   override def doGet(request: HttpServletRequest, response: HttpServletResponse): Unit = {
     val mail: String = request.getParameter("mail")
     val password: String = request.getParameter("pwd")
-    val dbs: UserDb = new UserDb()
-    var passw: String = dbs.selectQuery(mail)
+    val db: DBHandler = new DBHandler()
+    var passw: String = db.checkPassword(mail)
     response.setContentType("applicaton/json")
     response.setCharacterEncoding("utf-8")
     val out: PrintWriter = response.getWriter
     if (password == passw) {
-	     var maps = Map(("Status"->"true"))
-       out.println(Json.toJson(maps))
-    } else {
-      	var maps = Map(("Status"->"false"),("pass"->passw))
-        out.println(Json.toJson(maps))
+      var maps = Map(("Status"->"true"))
+      out.println(Json.toJson(maps))
+    }else {
+      var maps = Map(("Status"->"false"),("pass"->passw))
+      out.println(Json.toJson(maps))
     }
   }
 }

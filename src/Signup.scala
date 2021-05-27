@@ -15,28 +15,30 @@ class Signup extends HttpServlet {
     val payloadJson = Json.parse(reader.readLine())
     val json = payloadJson("newRecord")
 
-    val mail: String = json("mail").as[String]
-    val password: String = json("pwd").as[String]
-    val mobile: String = json("mobile").as[String]
-    val name: String = json("name").as[String]
-    val types: String = json("type").as[String]
-    val regNo: String = json("regNo").as[String]
-    val ownerName: String = json("ownerName").as[String]
-    val pin: String = json("pin").as[String]
+    val mail = json("mail").as[String]
+    val password = json("pwd").as[String]
+    var mobile_number = (json("mobile").as[String])
+    val name = json("name").as[String]
+    val vehicle_type = json("type").as[String]
+    val reg_no = json("regNo").as[String]
+    val owner_name = json("ownerName").as[String]
+    val pin = json("pin").as[String]
 
-    val dbs: NewUserDb = new NewUserDb()
+    val db: DBHandler = new DBHandler()
 
-
-    val out1:String = dbs.insertUserDetails(name,mail,mobile,password)
-    val out2:String = dbs.insertVehicleDetails(mail,types,regNo,ownerName)
-    val out3:String = dbs.insertBalanceDetails(mail,pin)
+    val out0 = db.insertUser(mail)
+    var id = db.getUserId(mail).toInt
+    //id = id.toInt
+    val out1:String = db.insertUserRecord(name,mail,mobile_number,password)
+    val out2:String = db.insertVehicleRecord(id,vehicle_type,reg_no)
+    val out3:String = db.insertBalanceRecord(id,pin)
 
     if(out1 == "true" && out2 == "true" && out3 == "true"){
         var maps = Map("status"->"true")
         out.println(Json.toJson(maps))
     }
     else{
-        var maps = Map("status"->"false")
+        var maps = Map("status"->out1,"status1"->out2,"status3"->out3)
         out.println(Json.toJson(maps))
     }
   }
