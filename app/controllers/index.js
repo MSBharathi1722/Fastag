@@ -8,7 +8,7 @@ export default class IndexController extends Controller {
     const response = await fetch("http://localhost:8080/fastag/login?mail="+this.mail+"&pwd="+this.pwd);
     const data = await response.json();
     console.log(data);
-    if(data.Status === 'true'){
+    if(data.status === 'true'){
       this.user.addMail(this.mail);
       this.router.transitionTo("home");
       this.mail="";

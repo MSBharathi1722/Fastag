@@ -6,8 +6,8 @@ export default class UserService extends Service {
   @tracked amount;
   @tracked balance;
 
-  addRegNo(item) {
-    this.regNo=item;
+  addUserId(item) {
+    this.id=item;
   }
   addMail(item){
     this.mail=item;

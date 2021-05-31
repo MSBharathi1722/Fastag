@@ -12,13 +12,18 @@ export default class PaymentController extends Controller {
     if(this.amt>0 && parseInt(this.amt)){
       if(this.isValidAccNo(this.cardNo)){
         if(this.cvv.length == 3){
-          if(/*this.isValidDate(this.mm)*/true){
-            if(/*this.isValidDate(this.yy)*/true){
-              let response = this.store.peekRecord('get-detail', this.user.mail);
-              response.Avail_Bal = parseInt(parseInt(response.Avail_Bal) + parseInt(this.amt)).toString();
-              response.save();
-              this.valid=true;
-              this.success=true;
+          if(this.isValidDate(this.mm)){
+            if(this.isValidDate(this.yy)){
+              var response = this.store.queryRecord('update',{mail : this.user.mail , amt : this.amt})
+              .then((funct) =>{
+                let status = funct.get('status')
+                if(status == "true"){
+                  this.valid=true;
+                  this.success=true;
+                }else{
+                  alert("payment Failed, Try after some time")
+                }
+              });
             }else{
               alert("Enter a valid Expiry Year");
             }

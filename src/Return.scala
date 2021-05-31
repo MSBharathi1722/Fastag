@@ -5,16 +5,15 @@ import play.api.libs.json._
 import java.time._
 import java.time.format.DateTimeFormatter
 
-class ReturnTime extends HttpServlet{
+class Return extends HttpServlet{
 	override def doGet(request: HttpServletRequest, response: HttpServletResponse) {
 		val mail: String = request.getParameter("mail")
-		val place: String = request.getParameter("place")
 	    response.setContentType("applicaton/json")
 	    response.setCharacterEncoding("utf-8")
 		val out: PrintWriter = response.getWriter
 		val db: DBHandler = new DBHandler()
-		
-		val result = db.getTravelDetails(mail)
+		var id = db.getUserId(mail)
+		val result = db.getTravelDetails(id)
 		out.println(Json.toJson(Map("return"->result)))
 	}
 }

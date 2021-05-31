@@ -5,53 +5,93 @@
 <web-app>
 
   <servlet>
-   <servlet-name>One</servlet-name>
+   <servlet-name>LoginServlet</servlet-name>
    <servlet-class>Login</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>One</servlet-name>
+    <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
   <servlet>
-   <servlet-name>Two</servlet-name>
+   <servlet-name>GetDetailsServlet</servlet-name>
    <servlet-class>Details</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>Two</servlet-name>
+    <servlet-name>GetDetailsServlet</servlet-name>
     <url-pattern>/getDetails/*</url-pattern>
   </servlet-mapping>
 
   <servlet>
-   <servlet-name>Three</servlet-name>
-   <servlet-class>ReturnTime</servlet-class>
+   <servlet-name>ReturnDetails</servlet-name>
+   <servlet-class>Return</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>Three</servlet-name>
+    <servlet-name>ReturnDetails</servlet-name>
     <url-pattern>/returns</url-pattern>
   </servlet-mapping>
 
   <servlet>
-   <servlet-name>Four</servlet-name>
+   <servlet-name>SignUpDetails</servlet-name>
    <servlet-class>Signup</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>Four</servlet-name>
+    <servlet-name>SignUpDetails</servlet-name>
     <url-pattern>/newRecords</url-pattern>
   </servlet-mapping>
 
   <servlet>
-   <servlet-name>Five</servlet-name>
+   <servlet-name>TravelDetails</servlet-name>
    <servlet-class>TollPass</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>Five</servlet-name>
+    <servlet-name>TravelDetails</servlet-name>
     <url-pattern>/travels</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+   <servlet-name>VerifyUser</servlet-name>
+   <servlet-class>CheckUser</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>VerifyUser</servlet-name>
+    <url-pattern>/userExist</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+   <servlet-name>VerifyPin</servlet-name>
+   <servlet-class>CheckPin</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>VerifyPin</servlet-name>
+    <url-pattern>/checkpins</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+   <servlet-name>updateBalance</servlet-name>
+   <servlet-class>UpdateBalance</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>updateBalance</servlet-name>
+    <url-pattern>/updates</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+   <servlet-name>returnUpdate</servlet-name>
+   <servlet-class>UpdateReturn</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>returnUpdate</servlet-name>
+    <url-pattern>/updateReturns</url-pattern>
   </servlet-mapping>
 
 </web-app>

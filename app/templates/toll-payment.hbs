@@ -7,14 +7,14 @@
         @type="text"
         placeholder="TollGate Place"
         @value={{this.place}}
-      />
+      /><br>
       <Input
         class="input"
         aria-label="Pin"
         @type="text"
         placeholder="PIN"
         @value={{this.pin}}
-      />
+      /><br>
       {{!-- template-lint-disable no-action --}}
       <button type="button" {{action this.pay}}>Pay</button>
     </form>

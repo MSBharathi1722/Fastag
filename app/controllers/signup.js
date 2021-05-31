@@ -18,13 +18,20 @@ export default class SignupController extends Controller {
   }
 
   @action
-  firstValidate(){
+  async firstValidate(){
     if(this.validateName(this.name)){
       if(this.validateEmail(this.mail)){
         if(this.validatePassword(this.pwd)){
           if(this.validateMobile(this.mobile)){
-            this.first=true;
-            this.second =true;
+            const response = await fetch('http://localhost:8080/fastag/userExist?mail='+this.mail);
+            const jsonResponse = await response.json();
+            if(jsonResponse.Status=="false"){
+              this.first=true;
+              this.second =true;
+            }else{
+              alert("User Already Exists in the given mail Id")
+              this.mail=""
+            }
           }else{
             alert("Enter a valid Mobile Number")
           }
@@ -51,11 +58,6 @@ export default class SignupController extends Controller {
       alert("Invalid Registration Number")
     }
   }
-  // @action
-  // final(){
-  //   this.third = false;
-  //   this.payment = true;
-  // }
 
   @action
   check(){
@@ -65,14 +67,14 @@ export default class SignupController extends Controller {
     response.mobile = this.mobile;
     response.name = this.name;
     response.type =this.type;
-    response.regNo = this.regNo;
+    response.regNo = this.regNo.toUpperCase();
     response.ownerName = this.ownerName;
     response.pin = this.pin;
 
-    response.save();
-
-    alert("Fastag Account Created Successfully, login to continue");
-    this.router.transitionTo("index");
+    response.save().then((funct)=>{
+      alert("Fastag Account Created Successfully, login to continue");
+      this.router.transitionTo("index");
+    });
   }
 
   validateEmail(email) {
