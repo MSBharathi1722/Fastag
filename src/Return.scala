@@ -7,13 +7,12 @@ import java.time.format.DateTimeFormatter
 
 class Return extends HttpServlet{
 	override def doGet(request: HttpServletRequest, response: HttpServletResponse) {
-		val mail: String = request.getParameter("mail")
+		val user_id: Int = request.getParameter("userId").toInt
 	    response.setContentType("applicaton/json")
 	    response.setCharacterEncoding("utf-8")
 		val out: PrintWriter = response.getWriter
 		val db: DBHandler = new DBHandler()
-		var id = db.getUserId(mail)
-		val result = db.getTravelDetails(id)
+		val result = db.getTravelDetails(user_id)
 		out.println(Json.toJson(Map("return"->result)))
 	}
 }

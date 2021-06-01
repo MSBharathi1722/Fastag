@@ -18,9 +18,10 @@ export default class TollPaymentController extends Controller {
   }
   pay(){
     if(this.validatePlace()){
-      let response = this.store.peekRecord('get-detail', this.user.mail);
+      console.log(this.user.id)
+      let response = this.store.peekRecord('get-detail', 1);
       if(parseInt(response.Avail_Bal) > parseInt(response.Amount)){
-        var checkedDetails = this.store.queryRecord('checkpin',{mail : this.user.mail , pin:this.pin})
+        var checkedDetails = this.store.queryRecord('checkpin',{userId : this.user.id , pin:this.pin})
         .then((funct)=> {
           let state = funct.get('status');
           if(state == "true"){
@@ -39,17 +40,17 @@ export default class TollPaymentController extends Controller {
     }
   }
   proceed(){
-    this.store.queryRecord('travel',{mail : this.user.mail, place:this.place})
-    .then((funct)=>{
-      let status = funct.get('status');
-      if(status == "true"){
+    var response = this.store.queryRecord('update',{userId : this.user.id, place:this.place})
+    .then((func)=> {
+      let state = func.get('status');
+      if(state == "true"){
         this.first = true;
         this.receipt = true;
-      }else{
+    }else{
         alert("Unfortunately Payment failed");
         this.router.transitionTo("home");
         this.reload();
-      }
+     }
     });
   }
   @action

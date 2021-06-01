@@ -1,5 +1,5 @@
-<div class="box1">
-  <div class="box2">
+<div class="payment-box1">
+  <div class="payment-box2">
     {{#unless this.valid}}
           <div class="app-container">
             <div class="top-box">
@@ -84,7 +84,7 @@
           </div>
     {{/unless}}
     {{#if this.success}}
-      <div class="body">
+      <div class="receipt-body">
         <div class="card">
             {{!-- template-lint-disable no-inline-styles --}}
             <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
@@ -98,6 +98,5 @@
       </div>
     {{/if}}
   </div>
-  <div class="box3"></div>
 </div>
 {{outlet}}

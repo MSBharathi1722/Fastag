@@ -14,7 +14,7 @@ export default class PaymentController extends Controller {
         if(this.cvv.length == 3){
           if(this.isValidDate(this.mm)){
             if(this.isValidDate(this.yy)){
-              var response = this.store.queryRecord('update',{mail : this.user.mail , amt : this.amt})
+              var response = this.store.queryRecord('update',{userId : this.user.id , amt : this.amt})
               .then((funct) =>{
                 let status = funct.get('status')
                 if(status == "true"){

@@ -22,16 +22,14 @@ class DBHandler{
 		var details=Map[String,String]();
 		getConnection()
 		try {
-    	    stmt = con.prepareStatement("select user_detail.name,user_detail.mail,vehicle_detail.type,vehicle_detail.reg_no,balance_detail.pin,balance_detail.balance from user_detail, balance_detail, vehicle_detail where user_detail.user_id=? and balance_detail.user_id=? and vehicle_detail.user_id=?")
+    	    stmt = con.prepareStatement("select name,mail,balance,reg_no,vehicle_type from user_detail inner join balance_detail on user_detail.user_id=balance_detail.user_id inner join vehicle_detail on user_detail.user_id=vehicle_detail.user_id where user_detail.user_id=?")
      	    stmt.setInt(1, id)
-     	    stmt.setInt(2, id)
-     	    stmt.setInt(3, id)
           	if (stmt.execute()) {
         		rs = stmt.getResultSet
         		while (rs.next()) {
-        			var temp: String = rs.getString(3)
+        			var vehicle_type: String = rs.getString(5)
 			    	var amt:Int = 0
-			    	temp match {
+			    	vehicle_type match {
 			    		case "type1" => amt = 85
 			      		case "type2" => amt = 135
 			      		case "type3" => amt = 285
@@ -40,7 +38,7 @@ class DBHandler{
 			      		case "type6" => amt = 550
 			    	}
 
-        			details += ("id"->id.toString(),"Name"->rs.getString(1),"Mail"->rs.getString(2),"Amount"->amt.toString(),"Reg_No"->rs.getString(4),"Avail_Bal"->rs.getString(6))         
+        			details += ("id"->"1","User_Id"->id.toString(),"Name"->rs.getString(1),"Mail"->rs.getString(2),"Amount"->amt.toString(),"Reg_No"->rs.getString(4),"Avail_Bal"->rs.getString(3))      
         		}
       		}else {
         		println("no execution .....")
@@ -57,11 +55,46 @@ class DBHandler{
 		}
     	details
 	}
+
+	def getTimeBalanceAmount(id:Int):Map[String,String] = {
+		getConnection()
+		var details=Map[String,String]();
+		try{
+			stmt = con.prepareStatement("select time,vehicle_type,balance from travel_detail inner join vehicle_detail on travel_detail.user_id=vehicle_detail.user_id inner join balance_detail on travel_detail.user_id=balance_detail.user_id where travel_detail.id=?")
+			stmt.setInt(1, id)
+			if (stmt.execute()) {
+				rs = stmt.getResultSet
+	        	while (rs.next()) {
+	        		var vehicle_type: String = rs.getString(2)
+				    var amt:Int = 0
+				    vehicle_type match {
+				    	case "type1" => amt = 85
+				    	case "type2" => amt = 135
+				    	case "type3" => amt = 285
+				    	case "type4" => amt = 315
+				    	case "type5" => amt = 450
+				    	case "type6" => amt = 550
+				    }
+				    details += ("Time"->rs.getString(1),"Amount"->amt.toString(),"Balance"->rs.getInt(3).toString())
+	        	}
+			}
+		}catch{
+			case ee: Exception => {
+        		println("Error while executing the query ......" + ee.getMessage)
+        		details += ("Error"->ee.getMessage)
+      		}
+		}finally{
+			stmt.close()
+    		rs.close()
+			con.close()
+		}
+        details	
+	}
 	def getVehicleType(id:Int):String = {
 		var result : String = null
 		getConnection()
     	try {
-    	    stmt = con.prepareStatement("select type from vehicle_detail where user_id=?")
+    	    stmt = con.prepareStatement("select vehicle_type from vehicle_detail where user_id=?")
      	    stmt.setInt(1, id)
           	if (stmt.execute()) {
         		rs = stmt.getResultSet
@@ -206,7 +239,7 @@ class DBHandler{
     	var result:String = null
     	
     	try {
-      		stmt = con.prepareStatement("insert into vehicle_detail(user_id,reg_no,type) values(?,?,?)")
+      		stmt = con.prepareStatement("insert into vehicle_detail(user_id,reg_no,vehicle_type) values(?,?,?)")
       		stmt.setInt(1, id)
       		stmt.setString(2, regNo.toUpperCase())
       		stmt.setString(3, types)
@@ -298,7 +331,7 @@ class DBHandler{
 	    var result = ListBuffer[Map[String,String]]()
 	    
 	    try {
-	    	stmt = con.prepareStatement("select distinct * from travel_detail where user_id=? and return_time is null order by id desc limit 5")
+	    	stmt = con.prepareStatement("select * from travel_detail where user_id=? and return_time is null order by id desc limit 5")
 	      	stmt.setInt(1, id)
 	      	if (stmt.execute()) {
 	        	var index=1

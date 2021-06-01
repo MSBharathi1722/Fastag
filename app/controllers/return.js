@@ -9,15 +9,21 @@ export default class ReturnController extends Controller {
   @tracked receipt = false;
 
   @tracked data = this.model;
-  @tracked details = this.store.peekRecord('get-detail', this.user.mail);
+  @tracked details = this.store.peekRecord('get-detail', this.user.id);
 
   @action
   pay(selectedId){
     var selectedArray = this.data.find(({id}) => id == selectedId);
-    this.store.queryRecord('update-return', {mail : this.user.mail, id : selectedId })
+    this.store.queryRecord('update', {userId : this.user.id, returnId : selectedId })
     .then((funct)=>{
-      this.content = true;
-      this.receipt = true;
+      let state = funct.get('status');
+      if(state == 'true'){
+        this.content = true;
+        this.receipt = true;
+      }else{
+        alert("Unfortunately payment failed, try again");
+      }
+
     })
   }
 

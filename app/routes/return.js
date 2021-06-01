@@ -6,6 +6,6 @@ export default class ReturnRoute extends Route {
   @tracked content = false;
   @tracked receipt = false;
   model(){
-    return this.store.query("return",{mail:this.user.mail})
+    return this.store.query("return",{userId : this.user.id});
   }
 }

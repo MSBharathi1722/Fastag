@@ -45,16 +45,6 @@
   </servlet-mapping>
 
   <servlet>
-   <servlet-name>TravelDetails</servlet-name>
-   <servlet-class>TollPass</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>TravelDetails</servlet-name>
-    <url-pattern>/travels</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
    <servlet-name>VerifyUser</servlet-name>
    <servlet-class>CheckUser</servlet-class>
   </servlet>
@@ -76,22 +66,12 @@
 
   <servlet>
    <servlet-name>updateBalance</servlet-name>
-   <servlet-class>UpdateBalance</servlet-class>
+   <servlet-class>UpdateDetail</servlet-class>
   </servlet>
 
   <servlet-mapping>
     <servlet-name>updateBalance</servlet-name>
     <url-pattern>/updates</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-   <servlet-name>returnUpdate</servlet-name>
-   <servlet-class>UpdateReturn</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>returnUpdate</servlet-name>
-    <url-pattern>/updateReturns</url-pattern>
   </servlet-mapping>
 
 </web-app>
