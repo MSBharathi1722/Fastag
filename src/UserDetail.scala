@@ -2,9 +2,21 @@ import javax.servlet._
 import javax.servlet.http._
 import java.io._
 import play.api.libs.json._
+import java.util.regex._
 
+class UserDetail extends HttpServlet {
+	override def doGet(request: HttpServletRequest, response: HttpServletResponse) {
+		val mail: String = request.getParameter("mail").toLowerCase()
+	    response.setContentType("applicaton/json")
+		val out: PrintWriter = response.getWriter
+		val db: DBHandler = new DBHandler()
 
-class Signup extends HttpServlet {
+		var id = db.getUserId(mail)
+      	
+		var details = db.getUserDetail(id)
+
+      	out.println(Json.toJson(Map("userDetail"->details)))
+    }
 
     override def doPost(request: HttpServletRequest, response: HttpServletResponse) {
         response.setContentType("applicaton/json")
@@ -13,7 +25,7 @@ class Signup extends HttpServlet {
 
         val reader = request.getReader()
         val payloadJson = Json.parse(reader.readLine())
-        val json = payloadJson("newRecord")
+        val json = payloadJson("userDetail")
 
         val mail = json("mail").as[String].toLowerCase()
         val password = json("pwd").as[String]
@@ -46,7 +58,8 @@ class Signup extends HttpServlet {
         }
     
     }
+
     def isValidMail(mail:String): Boolean ={
        true
-    }  
+    } 
 }

@@ -9,12 +9,16 @@ export default class ReturnController extends Controller {
   @tracked receipt = false;
 
   @tracked data = this.model;
-  @tracked details = this.store.peekRecord('get-detail', this.user.id);
+  @tracked details = this.store.peekRecord('user-detail', this.user.id);
 
   @action
   pay(selectedId){
     var selectedArray = this.data.find(({id}) => id == selectedId);
-    this.store.queryRecord('update', {userId : this.user.id, returnId : selectedId })
+    var response = this.store.createRecord('travel-detail', {id : this.user.emberId});
+    this.user.addEmberId(this.user.emberId+1)
+    response.user_id = this.user.id;
+    response.return_id = selectedId;
+    response.save()
     .then((funct)=>{
       let state = funct.get('status');
       if(state == 'true'){

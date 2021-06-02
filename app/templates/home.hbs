@@ -1,13 +1,13 @@
 <div id="home">
 
-    <h3>hello {{this.model.Name}},</h3>
+    <h3>hello {{this.model.name}},</h3>
     <button type="button" class="btn"><LinkTo @route="tollPayment">pay for a toll?</LinkTo></button>
     <button type="button" class="btn"><LinkTo @route="return">Return?</LinkTo></button>
     <h1>User-Details</h1>
-    <h2>Name : <br>{{this.model.Name}}</h2>
-    <h2>Mail :<br> {{this.model.Mail}}</h2>
-    <h2>Vehicle No. : <br>{{this.model.Reg_No}}</h2>
-    <h1>Available Balance <br>{{this.model.Avail_Bal}}</h1>
+    <h2>Name : <br>{{this.model.name}}</h2>
+    <h2>Mail :<br> {{this.model.mail}}</h2>
+    <h2>Vehicle No. : <br>{{this.model.reg_no}}</h2>
+    <h1>Available Balance <br>{{this.model.avail_bal}}</h1>
     <button type="button" class="btn"><LinkTo @route="payment">recharge?</LinkTo></button>
 
 </div>

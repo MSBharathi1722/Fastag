@@ -61,7 +61,7 @@ export default class SignupController extends Controller {
 
   @action
   check(){
-    var response = this.store.createRecord('new-record', { id : this.mail});
+    var response = this.store.createRecord('user-detail', { id : 1});
     response.mail = this.mail;
     response.pwd = this.pwd;
     response.mobile = this.mobile;

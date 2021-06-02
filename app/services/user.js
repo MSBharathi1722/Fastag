@@ -1,16 +1,17 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 export default class UserService extends Service {
-  @tracked id ;
+  @tracked userId ;
   @tracked mail ;
-  @tracked amount;
-  @tracked balance;
+  @tracked emberId=1;
 
   addUserId(item) {
-    this.id=item;
-    console.log(this.id);
+    this.userId=item;
   }
   addMail(item){
     this.mail=item;
+  }
+  addEmberId(id){
+    this.emberId = id;
   }
 }

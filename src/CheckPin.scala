@@ -6,7 +6,7 @@ import play.api.libs.json._
 class CheckPin extends HttpServlet {
 
   override def doGet(request: HttpServletRequest, response: HttpServletResponse) = {
-    val id: Int = request.getParameter("userId").toInt
+    val id: Int = request.getParameter("user_id").toInt
     val pin: String = request.getParameter("pin")
     val db: DBHandler = new DBHandler()
     response.setContentType("applicaton/json")

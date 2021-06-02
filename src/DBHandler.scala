@@ -38,7 +38,7 @@ class DBHandler{
 			      		case "type6" => amt = 550
 			    	}
 
-        			details += ("id"->"1","User_Id"->id.toString(),"Name"->rs.getString(1),"Mail"->rs.getString(2),"Amount"->amt.toString(),"Reg_No"->rs.getString(4),"Avail_Bal"->rs.getString(3))      
+        			details += ("id"->"1","user_id"->id.toString(),"name"->rs.getString(1),"mail"->rs.getString(2),"amount"->amt.toString(),"reg_no"->rs.getString(4),"avail_bal"->rs.getString(3))      
         		}
       		}else {
         		println("no execution .....")

@@ -19,8 +19,8 @@ export default class TollPaymentController extends Controller {
   pay(){
     if(this.validatePlace()){
       console.log(this.user.id)
-      let response = this.store.peekRecord('get-detail', 1);
-      if(parseInt(response.Avail_Bal) > parseInt(response.Amount)){
+      let response = this.store.peekRecord('user-detail', 1);
+      if(parseInt(response.avail_bal) > parseInt(response.amount)){
         var checkedDetails = this.store.queryRecord('checkpin',{userId : this.user.id , pin:this.pin})
         .then((funct)=> {
           let state = funct.get('status');
@@ -40,7 +40,11 @@ export default class TollPaymentController extends Controller {
     }
   }
   proceed(){
-    var response = this.store.queryRecord('update',{userId : this.user.id, place:this.place})
+    var response = this.store.createRecord('travel-detail',{id : this.user.emberId});
+    this.user.addEmberId(this.user.emberId+1);
+    response.user_id = this.user.id;
+    response.place = this.place;
+    response.save()
     .then((func)=> {
       let state = func.get('status');
       if(state == "true"){
