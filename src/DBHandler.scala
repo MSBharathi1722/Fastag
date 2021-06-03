@@ -337,7 +337,7 @@ class DBHandler{
 	        	var index=1
 	        	rs = stmt.getResultSet
 	        	while (rs.next()) {
-	        		result += Map("id"->rs.getInt(1).toString(),"Place"->rs.getString(3),"Time"->rs.getString(4))
+	        		result += Map("id"->rs.getInt(1).toString(),"place"->rs.getString(3),"time"->rs.getString(4))
 	            	index+=1
 	        	}
 	      	} else {

@@ -14,9 +14,8 @@ export default class PaymentController extends Controller {
         if(this.cvv.length == 3){
           if(this.isValidDate(this.mm)){
             if(this.isValidDate(this.yy)){
-              var response = this.store.createRecord('travel-detail',{ id : this.user.emberId});
-              this.user.addEmberId(this.user.emberId+1);
-              response.user_id = this.user.id;
+              var response = this.store.createRecord('travel-detail');
+              response.user_id = this.user.userId;
               response.amount = this.amt;
               response.save()
               .then((funct) =>{

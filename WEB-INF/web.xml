@@ -15,36 +15,6 @@
   </servlet-mapping>
 
   <servlet>
-   <servlet-name>GetDetailsServlet</servlet-name>
-   <servlet-class>Details</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>GetDetailsServlet</servlet-name>
-    <url-pattern>/getDetails/*</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-   <servlet-name>ReturnDetails</servlet-name>
-   <servlet-class>Return</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>ReturnDetails</servlet-name>
-    <url-pattern>/returns</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-   <servlet-name>SignUpDetails</servlet-name>
-   <servlet-class>Signup</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>SignUpDetails</servlet-name>
-    <url-pattern>/newRecords</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
    <servlet-name>VerifyUser</servlet-name>
    <servlet-class>CheckUser</servlet-class>
   </servlet>
@@ -55,23 +25,24 @@
   </servlet-mapping>
 
   <servlet>
-   <servlet-name>VerifyPin</servlet-name>
-   <servlet-class>CheckPin</servlet-class>
+   <servlet-name>UserDetail</servlet-name>
+   <servlet-class>UserDetail</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>VerifyPin</servlet-name>
-    <url-pattern>/checkpins</url-pattern>
+    <servlet-name>UserDetail</servlet-name>
+    <url-pattern>/userDetails</url-pattern>
   </servlet-mapping>
 
   <servlet>
-   <servlet-name>updateBalance</servlet-name>
-   <servlet-class>UpdateDetail</servlet-class>
+   <servlet-name>TravelDetail</servlet-name>
+   <servlet-class>TravelDetail</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>updateBalance</servlet-name>
-    <url-pattern>/updates</url-pattern>
+    <servlet-name>TravelDetail</servlet-name>
+    <url-pattern>/travelDetails</url-pattern>
   </servlet-mapping>
 
 </web-app>
+

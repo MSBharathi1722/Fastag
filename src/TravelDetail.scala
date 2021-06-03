@@ -4,6 +4,15 @@ import java.io._
 import play.api.libs.json._
 
 class TravelDetail extends HttpServlet {
+	override def doGet(request: HttpServletRequest, response: HttpServletResponse) = {
+  	    response.setContentType("applicaton/json")
+        response.setCharacterEncoding("utf-8")
+        val db: DBHandler = new DBHandler()
+        val out: PrintWriter = response.getWriter
+        val user_id = request.getParameter("user_id").toInt
+        val result = db.getTravelDetails(user_id)
+		out.println(Json.toJson(Map("travelDetail"->result)))
+	}
 
     override def doPost(request: HttpServletRequest, response: HttpServletResponse) = {
   	    response.setContentType("applicaton/json")
@@ -15,7 +24,11 @@ class TravelDetail extends HttpServlet {
         val payloadJson = Json.parse(reader.readLine())
         val json = payloadJson("travelDetail")
 
-        val user_id = json("user_id").as[String]
+        val user_id = try {
+        	json("user_id").as[String]
+        } catch {
+        	case _ => "null"
+        }        	
         val amount = try {
 			json("amount").as[String]
 		} catch {
@@ -43,27 +56,35 @@ class TravelDetail extends HttpServlet {
 	    }
 
 	    else if(return_id == "null" && amount == "null"){
-	    	val status:String = db.insertTravelDetails(user_id.toInt,place)
-			if(status == "true"){
-				val vehicle_type = db.getVehicleType(user_id.toInt)
-				val balance = db.getBalance(user_id.toInt)
-				var amt:Int = 0
-				vehicle_type match {
-				    case "type1" => amt = 85
-				    case "type2" => amt = 135
-				    case "type3" => amt = 285
-				    case "type4" => amt = 315
-				    case "type5" => amt = 450
-				    case "type6" => amt = 550
+	    	val pin = json("pin").as[String]
+	    	val correctPin = db.checkPin(user_id.toInt,pin)
+	    	if(correctPin == "true"){
+	    		val status:String = db.insertTravelDetails(user_id.toInt,place)
+				if(status == "true"){
+					val vehicle_type = db.getVehicleType(user_id.toInt)
+					val balance = db.getBalance(user_id.toInt)
+					var amt:Int = 0
+					vehicle_type match {
+					    case "type1" => amt = 85
+					    case "type2" => amt = 135
+					    case "type3" => amt = 285
+					    case "type4" => amt = 315
+					    case "type5" => amt = 450
+					    case "type6" => amt = 550
+					}
+					val updatedAmount = balance - amt
+					var state = db.updateBalance(user_id.toInt,updatedAmount)
+					var maps = Map("id"->user_id.toString(),"status"->state)
+		        	out.println(Json.toJson(Map("travelDetail"->maps)))
+				}else{
+					var maps = Map("id"->user_id.toString(),"status"->status)
+		        	out.println(Json.toJson(Map("travelDetail"->maps)))	
 				}
-				val updatedAmount = balance - amt
-				var state = db.updateBalance(user_id.toInt,updatedAmount)
-				var maps = Map("id"->user_id.toString(),"status"->state)
-	        	out.println(Json.toJson(Map("travelDetail"->maps)))
-			}else{
-				var maps = Map("id"->user_id.toString(),"status"->status)
-	        	out.println(Json.toJson(Map("travelDetail"->maps)))	
-			}
+	    	}
+	    	else{
+	    		var maps = Map("id"->user_id.toString(),"status"->"Invalid Pin")
+		        out.println(Json.toJson(Map("travelDetail"->maps)))
+	    	}
 	    }
 
 	    else if(place == "null" && amount == "null"){

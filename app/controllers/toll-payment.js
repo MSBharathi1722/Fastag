@@ -18,16 +18,26 @@ export default class TollPaymentController extends Controller {
   }
   pay(){
     if(this.validatePlace()){
-      console.log(this.user.id)
-      let response = this.store.peekRecord('user-detail', 1);
-      if(parseInt(response.avail_bal) > parseInt(response.amount)){
-        var checkedDetails = this.store.queryRecord('checkpin',{userId : this.user.id , pin:this.pin})
-        .then((funct)=> {
-          let state = funct.get('status');
-          if(state == "true"){
-            this.proceed();
-          }else{
+      let data = this.store.peekRecord('user-detail', 1);
+      if(parseInt(data.avail_bal) > parseInt(data.amount)){
+        var response = this.store.createRecord('travel-detail');
+        response.pin = this.pin;
+        response.user_id = this.user.userId;
+        response.place = this.place;
+        response.save()
+        .then((func)=> {
+          let state = func.get('status');
+          if(state == "Invalid Pin"){
             alert("Invalid Pin");
+          }else{
+            if(state == "true"){
+              this.first = true;
+              this.receipt = true;
+            }else{
+              alert("Unfortunately Payment failed");
+              this.router.transitionTo("home");
+              this.reload();
+            }
           }
         });
       }else{
@@ -39,24 +49,7 @@ export default class TollPaymentController extends Controller {
       alert("Enter a valid Toll Location");
     }
   }
-  proceed(){
-    var response = this.store.createRecord('travel-detail',{id : this.user.emberId});
-    this.user.addEmberId(this.user.emberId+1);
-    response.user_id = this.user.id;
-    response.place = this.place;
-    response.save()
-    .then((func)=> {
-      let state = func.get('status');
-      if(state == "true"){
-        this.first = true;
-        this.receipt = true;
-    }else{
-        alert("Unfortunately Payment failed");
-        this.router.transitionTo("home");
-        this.reload();
-     }
-    });
-  }
+
   @action
   reload(){
     this.first = false;

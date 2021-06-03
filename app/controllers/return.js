@@ -14,9 +14,8 @@ export default class ReturnController extends Controller {
   @action
   pay(selectedId){
     var selectedArray = this.data.find(({id}) => id == selectedId);
-    var response = this.store.createRecord('travel-detail', {id : this.user.emberId});
-    this.user.addEmberId(this.user.emberId+1)
-    response.user_id = this.user.id;
+    var response = this.store.createRecord('travel-detail');
+    response.user_id = this.user.userId;
     response.return_id = selectedId;
     response.save()
     .then((funct)=>{

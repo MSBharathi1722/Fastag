@@ -7,4 +7,5 @@ export default class TravelDetailModel extends Model {
   @attr return_id;
   @attr amount;
   @attr status;
+  @attr time;
 }
