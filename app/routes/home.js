@@ -7,6 +7,7 @@ export default class HomeRoute extends Route {
     var response = this.store.queryRecord('user-detail', { mail : this.user.mail })
     .then((funct)=> {
       let user_id = funct.get("user_id");
+      console.log(user_id);
       this.user.addUserId(user_id);
       return funct;
     });

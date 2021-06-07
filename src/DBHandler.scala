@@ -17,6 +17,7 @@ class DBHandler{
 	    	case e: SQLException => println(e)
 	  	}
 	}
+
 	
 	def getUserDetail(id:Int):Map[String,String] = {
 		var details=Map[String,String]();
@@ -37,7 +38,6 @@ class DBHandler{
 			      		case "type5" => amt = 450
 			      		case "type6" => amt = 550
 			    	}
-
         			details += ("id"->"1","user_id"->id.toString(),"name"->rs.getString(1),"mail"->rs.getString(2),"amount"->amt.toString(),"reg_no"->rs.getString(4),"avail_bal"->rs.getString(3))      
         		}
       		}else {
@@ -152,41 +152,6 @@ class DBHandler{
 			con.close()
 		}
 	    result
-	}
-
-	def getTimeBalanceAmount(id:Int):Map[String,String] = {
-		getConnection()
-		var details=Map[String,String]();
-		try{
-			stmt = con.prepareStatement("select time,vehicle_type,balance from travel_detail inner join vehicle_detail on travel_detail.user_id=vehicle_detail.user_id inner join balance_detail on travel_detail.user_id=balance_detail.user_id where travel_detail.id=?")
-			stmt.setInt(1, id)
-			if (stmt.execute()) {
-				rs = stmt.getResultSet
-	        	while (rs.next()) {
-	        		var vehicle_type: String = rs.getString(2)
-				    var amt:Int = 0
-				    vehicle_type match {
-				    	case "type1" => amt = 85
-				    	case "type2" => amt = 135
-				    	case "type3" => amt = 285
-				    	case "type4" => amt = 315
-				    	case "type5" => amt = 450
-				    	case "type6" => amt = 550
-				    }
-				    details += ("Time"->rs.getString(1),"Amount"->amt.toString(),"Balance"->rs.getInt(3).toString())
-	        	}
-			}
-		}catch{
-			case ee: Exception => {
-        		println("Error while executing the query ......" + ee.getMessage)
-        		details += ("Error"->ee.getMessage)
-      		}
-		}finally{
-			stmt.close()
-    		rs.close()
-			con.close()
-		}
-        details	
 	}
 
 

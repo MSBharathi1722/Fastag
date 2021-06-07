@@ -11,10 +11,11 @@
             placeholder="Name"
             @value={{this.name}}
           /><br>
+           {{!-- template-lint-disable builtin-component-arguments --}}
            <Input
             class="input"
             aria-label="UserMail"
-            @type="mail"
+            type="email"
             placeholder="mail"
             @value={{this.mail}}
             required
@@ -22,7 +23,7 @@
            <Input
             class="input"
             aria-label="UseMobile"
-            @type="tel"
+            type="tel"
             placeholder="Mobile Number"
             @value={{this.mobile}}
           /><br>

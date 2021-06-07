@@ -41,13 +41,13 @@ class TravelDetail extends HttpServlet {
 	    	val place = json("place").as[String]
 
 	    	val status = newTollPayment(pin,user_id.toInt,place)
-	    	maps+=("status"->status)   		
+	    	maps+=("status"->status)  		
 	    }
 
 	    else if(requestFor == "returnPayment"){
-	    	val return_id = json("return_id").as[String]
+	    	val id = json("return_id").as[String]
 
-	    	val status = returnPayment(user_id.toInt,return_id.toInt)
+	    	val status = returnPayment(user_id.toInt,id.toInt)
 			maps+=("status"->status)	    		
 	    }
 
@@ -80,7 +80,7 @@ class TravelDetail extends HttpServlet {
     	if(status == "true"){
 
 			val amount = getAmount(user_id)
-        	state = db.updateBalance(user_id,amount,"-") 
+        	state = db.updateBalance(user_id,amount,"-")
         	  		
 
     		/*val time_balance_amount = db.getTimeBalanceAmount(return_id)

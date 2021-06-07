@@ -6,6 +6,7 @@ export default class UserService extends Service {
 
   addUserId(item) {
     this.userId=item;
+    console.log(this.userId);
   }
   addMail(item){
     this.mail=item;

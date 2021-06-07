@@ -27,7 +27,6 @@ export default class ReturnController extends Controller {
       }else{
         alert("Unfortunately payment failed, try again");
       }
-
     })
   }
 }

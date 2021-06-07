@@ -10,12 +10,9 @@ class UserDetail extends HttpServlet {
 	    response.setContentType("applicaton/json")
 		val out: PrintWriter = response.getWriter
 		val db: DBHandler = new DBHandler()
-
-		var id = db.getUserId(mail)
-      	
+		var id = db.getUserId(mail)	
 		var details = db.getUserDetail(id)
-
-      	out.println(Json.toJson(Map("userDetail"->details)))
+     	out.println(Json.toJson(Map("userDetail"->details)))
     }
 
     override def doPost(request: HttpServletRequest, response: HttpServletResponse) {

@@ -3,7 +3,7 @@
     <h2>Your Last few Travel Details</h2>
     {{#each this.model as |list|}}
       <div class="content">
-        <div><h3>{{list.place}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{list.time}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" {{on 'click' (fn this.pay list.id)}}>Pay</button></h3></div>
+        <div><h3>{{list.place}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{list.time}}<br><button type="button" {{on 'click' (fn this.pay list.id)}}>Pay</button></h3></div>
       </div>
     {{/each}}
   </div>
