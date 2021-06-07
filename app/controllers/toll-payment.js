@@ -5,7 +5,6 @@ import { inject as service } from '@ember/service';
 export default class TollPaymentController extends Controller {
   @service router;
   @service user;
-  @tracked time ;
   @tracked first = false;
   @tracked receipt = false;
   @action
@@ -21,6 +20,7 @@ export default class TollPaymentController extends Controller {
       let data = this.store.peekRecord('user-detail', 1);
       if(parseInt(data.avail_bal) > parseInt(data.amount)){
         var response = this.store.createRecord('travel-detail');
+        response.request_for = "tollPayment";
         response.pin = this.pin;
         response.user_id = this.user.userId;
         response.place = this.place;
@@ -48,14 +48,5 @@ export default class TollPaymentController extends Controller {
     }else{
       alert("Enter a valid Toll Location");
     }
-  }
-
-  @action
-  reload(){
-    this.first = false;
-    this.second = false;
-    this.receipt = false;
-    this.place="";
-    this.pin="";
   }
 }

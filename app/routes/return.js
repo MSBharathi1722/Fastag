@@ -8,4 +8,11 @@ export default class ReturnRoute extends Route {
   model(){
     return this.store.query("travel-detail",{user_id : this.user.userId});
   }
+  setupController(controller, model) {
+    super.setupController(controller, model);
+    this.controllerFor('return').set('content', false);
+    this.controllerFor('return').set('receipt', false);
+    this.controllerFor('return').set('place', "");
+    this.controllerFor('return').set('pin', "");
+  }
 }

@@ -19,7 +19,7 @@
         @value={{this.pwd}}
       /><br>
       {{!-- template-lint-disable no-action --}}
-      <button id="button" type="button" {{action this.validate}}>Log In</button><br>
+      <button id="button" type="reset" {{action this.validate}}>Log In</button><br>
       <LinkTo @route="signup">Create one?</LinkTo>
     </form>
   </div>

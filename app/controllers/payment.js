@@ -15,6 +15,7 @@ export default class PaymentController extends Controller {
           if(this.isValidDate(this.mm)){
             if(this.isValidDate(this.yy)){
               var response = this.store.createRecord('travel-detail');
+              response.request_for = "payment";
               response.user_id = this.user.userId;
               response.amount = this.amt;
               response.save()
@@ -48,16 +49,5 @@ export default class PaymentController extends Controller {
   }
   isValidDate(num){
     return num.length == 2;
-  }
-  reload(){
-    this.success = false;
-    this.valid = false;
-    this.amt = "";
-    this.mm = "";
-    this.yy = "";
-    this.cardNo ="";
-    this.cvv = "";
-    this.name = "";
-    this.router.transitionTo("home");
   }
 }

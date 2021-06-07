@@ -8,4 +8,5 @@ export default class TravelDetailModel extends Model {
   @attr amount;
   @attr status;
   @attr time;
+  @attr request_for;
 }

@@ -15,6 +15,7 @@ export default class ReturnController extends Controller {
   pay(selectedId){
     var selectedArray = this.data.find(({id}) => id == selectedId);
     var response = this.store.createRecord('travel-detail');
+    response.request_for = "returnPayment";
     response.user_id = this.user.userId;
     response.return_id = selectedId;
     response.save()
@@ -28,13 +29,5 @@ export default class ReturnController extends Controller {
       }
 
     })
-  }
-
-  @action
-  reload(){
-    this.content = false;
-    this.receipt = false;
-    this.place="";
-    this.pin="";
   }
 }

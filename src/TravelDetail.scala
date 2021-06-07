@@ -2,6 +2,7 @@ import javax.servlet._
 import javax.servlet.http._
 import java.io._
 import play.api.libs.json._
+import scala.collection._
 
 class TravelDetail extends HttpServlet {
 	override def doGet(request: HttpServletRequest, response: HttpServletResponse) = {
@@ -24,73 +25,65 @@ class TravelDetail extends HttpServlet {
         val payloadJson = Json.parse(reader.readLine())
         val json = payloadJson("travelDetail")
 
-        val user_id = try {
-        	json("user_id").as[String]
-        } catch {
-        	case _ => "null"
-        }        	
-        val amount = try {
-			json("amount").as[String]
-		} catch {
-		  	case _ => "null"
-		}
-		val return_id = try {
-			json("return_id").as[String]
-		} catch {
-			case _ => "null"
-		}
-		val place = try {
-			json("place").as[String].toLowerCase()
-		} catch {
-			case _ => "null"
-		}
+        val requestFor = json("request_for").as[String]
+        val user_id = json("user_id").as[String]
 
-		if(place == "null" && return_id == "null"){
+        var maps = Map("id"->user_id)
 
-			var currenBalance = db.getBalance(user_id.toInt)
-	      	var updatedBalance = currenBalance + amount.toInt
-			var status = db.updateBalance(user_id.toInt,updatedBalance)
-			var maps = Map("id"->user_id.toString(),"status"->status)
-	      	out.println(Json.toJson(Map("travelDetail"->maps)))
-	    
+		if(requestFor == "payment"){			
+			var amount = json("amount").as[String]
+			val status = payment(user_id.toInt,amount.toInt)
+			maps+=("status"->status)    
 	    }
 
-	    else if(return_id == "null" && amount == "null"){
+	    else if(requestFor == "tollPayment"){
 	    	val pin = json("pin").as[String]
-	    	val correctPin = db.checkPin(user_id.toInt,pin)
-	    	if(correctPin == "true"){
-	    		val status:String = db.insertTravelDetails(user_id.toInt,place)
-				if(status == "true"){
-					val vehicle_type = db.getVehicleType(user_id.toInt)
-					val balance = db.getBalance(user_id.toInt)
-					var amt:Int = 0
-					vehicle_type match {
-					    case "type1" => amt = 85
-					    case "type2" => amt = 135
-					    case "type3" => amt = 285
-					    case "type4" => amt = 315
-					    case "type5" => amt = 450
-					    case "type6" => amt = 550
-					}
-					val updatedAmount = balance - amt
-					var state = db.updateBalance(user_id.toInt,updatedAmount)
-					var maps = Map("id"->user_id.toString(),"status"->state)
-		        	out.println(Json.toJson(Map("travelDetail"->maps)))
-				}else{
-					var maps = Map("id"->user_id.toString(),"status"->status)
-		        	out.println(Json.toJson(Map("travelDetail"->maps)))	
-				}
-	    	}
-	    	else{
-	    		var maps = Map("id"->user_id.toString(),"status"->"Invalid Pin")
-		        out.println(Json.toJson(Map("travelDetail"->maps)))
-	    	}
+	    	val place = json("place").as[String]
+
+	    	val status = newTollPayment(pin,user_id.toInt,place)
+	    	maps+=("status"->status)   		
 	    }
 
-	    else if(place == "null" && amount == "null"){
-	    	
-			val status: String = db.updateReturn(return_id.toInt)
-			val time_balance_amount = db.getTimeBalanceAmount(return_id.toInt)
+	    else if(requestFor == "returnPayment"){
+	    	val return_id = json("return_id").as[String]
+
+	    	val status = returnPayment(user_id.toInt,return_id.toInt)
+			maps+=("status"->status)	    		
+	    }
+
+	    out.println(Json.toJson(Map("travelDetail"->maps)))
+    }
+    
+    def payment(user_id:Int , amount:Int):String = {
+    	val db: DBHandler = new DBHandler()
+    	val state = db.updateBalance(user_id,amount,"+")
+    	state
+    }
+    
+    def newTollPayment(pin : String, user_id : Int, place: String):String ={
+        val db: DBHandler = new DBHandler()
+        var state = "null"
+        if(IsCorrectPin(user_id,pin) == "true"){
+        	val status:String = db.insertTravelDetails(user_id,place)
+        	if(status == "true"){
+        		val amount = getAmount(user_id)
+        		state = db.updateBalance(user_id,amount,"-")
+        	}
+        }
+        state
+    }
+    
+    def returnPayment(user_id:Int, return_id:Int) : String = {
+    	val db: DBHandler = new DBHandler()
+    	val status: String = db.updateReturn(return_id)
+    	var state = "null"
+    	if(status == "true"){
+
+			val amount = getAmount(user_id)
+        	state = db.updateBalance(user_id,amount,"-") 
+        	  		
+
+    		/*val time_balance_amount = db.getTimeBalanceAmount(return_id)
 			
 			val time = time_balance_amount("Time").toString()
 			val amt = time_balance_amount("Amount").toString()
@@ -100,20 +93,26 @@ class TravelDetail extends HttpServlet {
 
 			if(timeDifference == 1){
 				var updatedAmount:Int = balance.toInt - (amt.toInt/2).toInt
-				var state = db.updateBalance(user_id.toInt,updatedAmount)
-				var maps = Map("id"->return_id,"status"->state,"amt"->"half")
-	        	out.println(Json.toJson(Map("travelDetail"->maps)))
+				state = db.updateBalance(user_id.toInt,updatedAmount,"-")
 			}
 			else if(timeDifference == 0){
 				var updatedAmount:Int = (balance.toInt - amt.toInt)
-				var state = db.updateBalance(user_id.toInt,updatedAmount)
-				var maps = Map("id"->return_id,"status"->state,"amt"->"full")
-	        	out.println(Json.toJson(Map("travelDetail"->maps)))
+				state = db.updateBalance(user_id.toInt,updatedAmount,"-")
 			}
 			else{
-				var maps = Map("id"->return_id,"status"->"Failed")
-	        	out.println(Json.toJson(Map("travelDetail"->maps)))
-			}
-	    }
+				state = "Failed"
+			}*/
+    	}
+    	state
+    }
+    def IsCorrectPin(user_id : Int, pin : String):String = {
+    	val db: DBHandler = new DBHandler()
+    	val isCorrectPin = db.checkPin(user_id,pin)
+    	isCorrectPin
+    }
+    def getAmount(user_id : Int): Int = {
+    	val db: DBHandler = new DBHandler()
+    	val amount = db.getAmount(user_id)
+    	amount
     }
 }
